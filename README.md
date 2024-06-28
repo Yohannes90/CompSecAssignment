@@ -15,10 +15,10 @@ Welcome to the RC4 Encryption Algorithm repository! This project demonstrates th
 ## Screenshot
 
 ![Screenshot](./ScreenshotRunnngCode.png)
-![Slides](./https://gamma.app/docs/Understanding-the-RC4-Algorithm-3aug9ochgtw70c8)
+[Slides](./https://gamma.app/docs/Understanding-the-RC4-Algorithm-3aug9ochgtw70c8)
 
 ## Video Explanation
-- For presentation of the algorithm, check out our ![Link to video explanation](https://www.veed.io/view/59975cf9-4750-44f8-8319-88c09810e130?panel=share).
+- For presentation of the algorithm, check out our [Link to video explanation](https://www.veed.io/view/59975cf9-4750-44f8-8319-88c09810e130?panel=share).
 
 ## Files in the Repository
 
