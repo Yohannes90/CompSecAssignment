@@ -15,10 +15,10 @@ Welcome to the RC4 Encryption Algorithm repository! This project demonstrates th
 ## Screenshot
 
 ![Screenshot](./ScreenshotRunnngCode.png)
-[Slides](./https://gamma.app/docs/Understanding-the-RC4-Algorithm-3aug9ochgtw70c8)
 
 ## Video Explanation
-- For presentation of the algorithm, check out our [Link to video explanation](https://www.veed.io/view/59975cf9-4750-44f8-8319-88c09810e130?panel=share).
+- For presentation of the algorithm, check out [Link to video explanation](https://www.veed.io/view/59975cf9-4750-44f8-8319-88c09810e130?panel=share).
+- For presentation Slides, check out [Link to Slides](./https://gamma.app/docs/Understanding-the-RC4-Algorithm-3aug9ochgtw70c8).
 
 ## Files in the Repository
 
@@ -32,4 +32,4 @@ Follow these steps to run the RC4 algorithm:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/RC4-Encryption-Algorithm.git
+   git clone https://github.com/Yohannes90/CompSecAssignment.git
