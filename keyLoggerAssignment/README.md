@@ -69,17 +69,24 @@ This project implements a keylogger in Python that records keystrokes and period
 - Remove any sensitive information such as API keys or personal email credentials from the code.
 - Modify the code for educational purposes to enhance readability and understanding (e.g., add comments, remove complex logic).
 
-#### Optimization
+#### Optimization(For Windows)
 
-- **Batch file (optional)**: Create a batch file (`run_keylogger.bat`) to simplify execution in a Windows environment. Example content for `run_keylogger.bat`:
+- **To ensure the keylogger starts each time the computer boots, you can add it to the system's startup programs. This can be done in different ways depending on the operating system. Below, I'll provide examples for Windows only.**
 
-  ```plaintext
-  @echo off
-  cd /d %~dp0
-  python keylogger.py
-  ```
 
-  Double-clicking `run_keylogger.bat` will start the keylogger.
+1. **Create a Batch File**
+   Create a batch file (`start_keylogger.bat`) to run your Python script:
+
+   ```batch
+   @echo off
+   pythonw C:\path\to\your\keylogger.py
+   ```
+
+   Make sure to replace `C:\path\to\your\keylogger.py` with the actual path to your Python script. Using `pythonw` runs the script without opening a command prompt window.
+
+2. **Add the Batch File to Startup**
+   - Press `Win + R`, type `shell:startup`, and press Enter. This opens the Startup folder.
+   - Place the `start_keylogger.bat` file in the Startup folder.
 
 ### Usage
 
