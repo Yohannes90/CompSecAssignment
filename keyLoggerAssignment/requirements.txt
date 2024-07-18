@@ -1,0 +1,4 @@
+smtplib==3.4.2
+psutil==5.8.0
+pynput==1.8.8
+python-dotenv==0.19.1
